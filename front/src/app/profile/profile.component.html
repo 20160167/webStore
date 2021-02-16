@@ -1,0 +1,20 @@
+<app-navbar [isHome]="isHome"></app-navbar>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+          <li class="nav-item active btn-link">
+            <a class="nav-link2"  routerLink="/profile">INFO</a>
+          </li>
+          <li class="nav-item btn-link">
+            <a class="nav-link2" *ngIf="!admin"  routerLink="/profile/orders" >NARUDŽBINE</a>
+          </li>
+          <li class="nav-item btn-link">
+            <a class="nav-link2" routerLink="/profile/changepassword">PROMENI LOYINKU</a>
+          </li>
+          <li class="nav-item btn-link">
+            <a class="nav-link2" (click)="onLogout()">IZLOGUJ SE</a>
+          </li>
+      </ul>
+</div>
+</nav>
+<router-outlet></router-outlet>

@@ -1,0 +1,43 @@
+@import 'fonts';
+@import 'layouts';
+$border-radius-standard: 20px;
+$button-width-standard: 140px;
+$button-height-standard: 40px;
+%container-layout {
+    padding-left: $padding-standard-container;
+    padding-right: $padding-standard-container;
+    padding-top: $padding-standard-container;
+    padding-bottom: $padding-standard-container;
+}
+
+%title-section {
+    margin-bottom: $margin-standard-item;
+    h3 {
+        margin: 0 auto;
+        text-align: center;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-primary;
+    }
+}
+
+%subtitle-section {
+    margin-bottom: $margin-standard-item;
+    padding-left: $padding-standard-container;
+    padding-right: $padding-standard-container;
+    p {
+        margin: 0 auto;
+        text-align: center;
+        font-size: $font-size-normal;
+    }
+}
+
+%button-standard {
+    background: transparent;
+    border: 1px solid;
+    border-radius: $border-radius-standard;
+    width: $button-width-standard;
+    height: $button-height-standard;
+    font-weight: $font-weight-regular;
+    font-size: $font-size-normal;
+    cursor: pointer;
+}

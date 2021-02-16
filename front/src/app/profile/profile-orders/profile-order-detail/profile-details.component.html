@@ -1,0 +1,61 @@
+<div class="cart-page-container">
+  <div class="cart-page-header">
+      <h1>Detalji narudžbine</h1>
+  </div>
+  <div class="cart-page-content" *ngIf="order.shoppingCart.products.length>0">
+      <!-- <div class="cart-item-header cart-item-row">
+          <div class="cart-item-cell cart-item-product"><span>Product</span></div>
+          <div class="cart-item-cell cart-item-quantity"><span>Quantity</span></div>
+          <div class="cart-item-cell cart-item-total"><span>Total</span></div>
+          <div class="cart-item-cell cart-item-action"><span>Action</span></div>
+      </div> -->
+      <div class="cart-item-row" *ngFor="let cover of order.shoppingCart.products">
+          <div class="cart-item-cell cart-item-product">
+              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + cover.url + ')'}">
+              </div>
+              <div class="cart-item-info">
+                  <div class="cart-item-brand">{{cover.car.model.brand.name}}</div>
+                  <div class="cart-item-title">{{cover.car.model.name}}</div>
+                  <div class="cart-item-title">{{"Nivo opreme: "+cover.car.equipmentLevel}}</div>
+                  <div class="cart-item-title">{{"Generacija: "+cover.car.generation}}</div>
+                  <div class="cart-item-title">{{"Tip: "+cover.car.bodyType}}</div>
+                  <div class="cart-item-title">{{"Boja unutra: "+cover.combination.color1}}</div>
+                  <div class="cart-item-title">{{"Boja spolja: "+cover.combination.color2}}</div>
+                  <div class="cart-item-title">{{"Opis: "+cover.combination.description}}</div>
+              </div>
+          </div>
+          <div class="cart-item-cell cart-item-total">
+              <div class="item-price">
+                  {{cover.price+" EUR"}}
+              </div>
+          </div>
+      </div>
+      <div class="row cart-total">
+          <div class="col-lg-offset-6">
+              <div class="cart-total-row row">
+                  <div class="col-md-6 cart-total-label">
+                      Pregled korpe
+                  </div>
+                  <div class="col-md-6 cart-total-value"></div>
+              </div>
+              <!-- <div class="cart-total-row row">
+                  <div class="col-md-6 cart-total-label">
+                      subtotal
+                  </div>
+                  <div class="col-md-6 cart-total-value">
+                      {{total }}
+                  </div>
+              </div> -->
+              <div class="cart-total-row row">
+                  <div class="col-md-6 cart-total-label">
+                      Ukupno
+                  </div>
+                  <div class="col-md-6 cart-total-value cart-total-price">
+                      {{order.total }} EUR
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

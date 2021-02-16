@@ -1,0 +1,57 @@
+@import '../../common/scss/layouts.scss';
+@import '../../common/scss/colors.scss';
+@import '../../common/scss/fonts.scss';
+.navbar {
+    padding-left: $padding-standard-container;
+    padding-right: $padding-standard-container;
+    font-size: $font-size-normal;
+    .navbar-nav {
+        li {
+            cursor: pointer;
+        }
+        a {
+
+            padding-left: $padding-standard-item;
+        }
+    }
+    .nav-link1{
+      color: white;
+    }
+    .nav-link2{
+      color: black;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .navbar {
+        padding-left: $padding-standard-item;
+        padding-right: $padding-standard-item;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .navbar-nav {
+        margin-top: $margin-standard-item/2;
+    }
+    .navbar {
+        padding-left: $padding-standard-item;
+        padding-right: $padding-standard-item;
+        color: $font-color-primary;
+        li {
+            background: $bg-color-primary;
+            .nav-link {
+                color: $font-color-primary;
+                &:hover {
+                    background: $bg-color-secondary;
+                    color: $font-navbar-color;
+                }
+            }
+        }
+    }
+    .header-cart-item {
+      display: none
+  }
+  .mobil-shopping-cart {
+    display: none
+}
+}

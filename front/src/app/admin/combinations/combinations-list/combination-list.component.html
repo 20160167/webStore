@@ -1,0 +1,41 @@
+<!-- <div class="row">
+    <div class="col-md-5">
+        <app-recipe-list></app-recipe-list>
+    </div>
+    <div class="col-md-7">
+
+        <router-outlet></router-outlet>
+    </div>
+</div> -->
+
+
+<!-- dodati ovo u row pa column -->
+<!-- <select class='select-option'
+    #mySelect
+    (change)='onOptionsSelected(mySelect.value)'>
+   <option class='option'
+   *ngFor='let option of dropDownData'
+   [value]="option.seo_val">{{option.text_val}}</option>
+</select> -->
+<!-- <select class="uk-width-1-1" id="model" name="model[]" placeholder="Svi modeli" disabled="disabled" multiple="multiple"></select> -->
+
+<h1>Kombinacije</h1>
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-2"></div>
+  <button type="button" class="btn btn-primary btn-block" routerLink="/combinations/new"> Dodaj </button>
+</div>
+<div class="cart-page-content" *ngIf="combinations.length>0">
+    <div class="cart-item-row" *ngFor="let com of combinations">
+        <div class="cart-item-cell cart-item-product">
+          <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + com.url + ')'}">
+          </div>
+            <div class="cart-item-info">
+                <div class="cart-item-brand">{{"Boja unutra: "+com.color1}}</div>
+                <div class="cart-item-brand">{{"Boja spolja: "+com.color2}}</div>
+                <div class="cart-item-brand">{{"Opis: "+com.description}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+

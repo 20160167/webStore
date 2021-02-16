@@ -1,0 +1,173 @@
+<div class="product-page-container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <article class="card-body">
+          <h4 class="card-title text-center mb-4 mt-1">Dodaj novi automobil</h4>
+          <hr />
+          <select [(ngModel)]="brandSelect" class="form-control" (change)="onChange($event)">
+            <option value="" disabled selected hidden>Brend</option>
+            <option *ngFor="let brand of brands" [value]="brand.id">
+              {{ brand.name }}
+            </option>
+          </select>
+          <button type="button" class="btn btn-link" (click)="onAddBrand()" *ngIf="!brandAdd">
+            +
+          </button>
+          <form
+
+            #authForm1="ngForm"
+            (ngSubmit)="onSubmitBrand(authForm1)"
+            *ngIf="brandAdd"
+          >
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Brend"
+                  type="text"
+                  ngModel
+                  name="brand"
+                  id="brand"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                [disabled]="!authForm1.valid"
+              >
+                Dodaj
+              </button>
+            </div>
+            <!-- form-group// -->
+          </form>
+          <select
+            class="form-control"
+            [(ngModel)]="nrSelect"
+            [disabled]="!enabled"
+            (change)="onChangeModel($event)"
+          >
+            <option value="" disabled selected hidden>Model</option>
+            <option *ngFor="let model of modelItems" [value]="model.id">
+              {{ model.name }}
+            </option>
+          </select>
+          <button type="button" class="btn btn-link" (click)="onAddModel()" *ngIf="!modelAdd">
+            +
+          </button>
+          <form
+            #authForm2="ngForm"
+            (ngSubmit)="onSubmitModel(authForm2)"
+            *ngIf="modelAdd"
+          >
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Model"
+                  type="text"
+                  ngModel
+                  name="model"
+                  id="model"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                [disabled]="!authForm2.valid"
+              >
+                Dodaj
+              </button>
+            </div>
+            <!-- form-group// -->
+          </form>
+          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Tip"
+                  type="text"
+                  ngModel
+                  name="bodyType"
+                  id="bodyType"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Generacija"
+                  type="text"
+                  ngModel
+                  name="generation"
+                  id="generation"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <!-- form-group// -->
+
+            <!-- form-group// -->
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Nivo opreme"
+                  type="text"
+                  ngModel
+                  name="equipmentLevel"
+                  id="equipmentLevel"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="Url"
+                  type="text"
+                  ngModel
+                  name="url"
+                  id="url"
+                  (change)="onPhoto($event)"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                [disabled]="!authForm.valid || modelId===null"
+              >
+                Dodaj
+              </button>
+            </div>
+            <!-- form-group// -->
+          </form>
+        </article>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div
+        class="product-details-image"
+        *ngIf="url != ''"
+        [ngStyle]="{ 'background-image': 'url(' + url + ')' }"
+      ></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<!-- <div class="row">
+    <div class="col-md-5">
+        <app-recipe-list></app-recipe-list>
+    </div>
+    <div class="col-md-7">
+
+        <router-outlet></router-outlet>
+    </div>
+</div> -->
+
+
+<!-- dodati ovo u row pa column -->
+<!-- <select class='select-option'
+    #mySelect
+    (change)='onOptionsSelected(mySelect.value)'>
+   <option class='option'
+   *ngFor='let option of dropDownData'
+   [value]="option.seo_val">{{option.text_val}}</option>
+</select> -->
+<!-- <select class="uk-width-1-1" id="model" name="model[]" placeholder="Svi modeli" disabled="disabled" multiple="multiple"></select> -->
+
+<h1>Lista narudzbina</h1>
+<div class="row">
+  <div class="col-sm-4" >
+<select class="form-control" (change)="onChange($event)">
+<option value="" selected >Status</option>
+<option *ngFor="let stat of status" [value]=stat>{{stat}}</option>
+</select>
+</div>
+</div>
+
+<div class="cart-page-content" *ngIf="loadedOrders.length>0">
+    <!-- <div class="cart-item-header cart-item-row">
+        <div class="cart-item-cell cart-item-product"><span>Product</span></div>
+        <div class="cart-item-cell cart-item-quantity"><span>Quantity</span></div>
+        <div class="cart-item-cell cart-item-total"><span>Total</span></div>
+        <div class="cart-item-cell cart-item-action"><span>Action</span></div>
+    </div> -->
+    <div class="cart-item-row" *ngFor="let order of loadedOrders;let i = index" [routerLink]="[order.id]">
+        <div class="cart-item-cell cart-item-product">
+            <div class="cart-item-info">
+                <div class="cart-item-brand">{{"Order status: "+order.status}}</div>
+                <div class="cart-item-title">{{"Order date: "+order.date.toString()}}</div>
+            </div>
+        </div>
+        <div class="cart-item-cell cart-item-total">
+            <div class="item-price">
+                {{order.total+" EUR"}}
+            </div>
+        </div>
+    </div>
+</div>
+<h3>Ukupno narudzbina:{{orders.length}}</h3>
+<h3>Ukupna yarada:{{total}}</h3>
+<div class="cart-page-content" *ngIf="loadedOrders.length == 0">
+  <h4>Nema porudzbina sa izabranim statusom.</h4>
+</div>

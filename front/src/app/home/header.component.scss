@@ -1,0 +1,50 @@
+@import '../../common/scss/base.scss';
+$padding-standard-hero: 180px;
+.nav-link1{
+  color: white;
+}
+.header-containter {
+  background-image: url('../../assets/img/bg-header.jpg');
+  background-size: 100% 100%;
+}
+.container-fluid {
+    padding-top: $padding-standard-hero;
+    padding-bottom: $padding-standard-hero;
+    padding-left: $padding-standard-container;
+    padding-right: $padding-standard-container;
+    color: $font-color-primary;
+}
+
+h1 {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-large;
+    font-family: $font-family-primary;
+}
+
+p {
+    font-weight: $font-weight-regular;
+    font-size: $font-size-normal;
+}
+
+.button-group {
+    button {
+        @extend %button-standard;
+        color: $font-color-primary;
+        border-color: $border-color-primary;
+        margin-top: $margin-standard-item;
+        &:hover {
+            background: $bg-color-secondary;
+            color: $button-font-color-hover;
+            cursor: pointer;
+        }
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .container-fluid {
+        padding-bottom: $padding-standard-item;
+    }
+    .button-group {
+        text-align: center;
+    }
+}

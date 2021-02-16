@@ -1,0 +1,106 @@
+.product-page {
+  width: 100%;
+}
+.product-page-container {
+  max-width: 1140px;
+  text-align: center;
+  padding: 0 30px;
+  margin: auto;
+}
+.product-breadcrumbs {
+  padding: 30px 0;
+}
+.product-breadcrumbs li{
+  display: inline-block;
+  letter-spacing: .1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: .85em;
+}
+.product-breadcrumbs li a {
+  color: #4a4a4a;
+}
+.product-breadcrumbs li:last-child{
+  opacity: 0.5;
+}
+
+.product-details-image {
+  width: 95%;
+  padding-top: 63.3%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left:-100px;
+  margin-bottom:10px;
+  margin-top:0px;
+}
+.product-details-image1 {
+  width: 95%;
+  padding-top: 63.3%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left:0px;
+  margin-bottom:10px;
+}
+
+@media screen and (max-width: 992px) {
+  .product-details-image {
+      width: 100%;
+      padding-top: 66.6%;
+  }
+}
+.product-brand {
+  color: #7d7d7d;
+}
+.product-title {
+  margin:15px 0;
+  font-size:2.5em;
+  font-weight: 400;
+  font-family: "Playfair Display";
+}
+.product-price {
+  color:#9f9f9f;
+  font-family: "Playfair Display";
+  font-size:20px;
+}
+.product-description {
+  color: #7d7d7d;
+  margin:10px 0 30px 0;
+}
+.product-details-button {
+  padding:25px 0;
+  border-top: 1px solid #e4e4e4;
+  text-align: center;
+}
+.product-cart-button {
+  vertical-align: top;
+  margin-left:5px
+}
+.image-container {
+  position: relative;
+}
+.image-container:hover .product-image{
+  opacity: 0.3;
+  background-size:120%;
+}
+.image-container:hover .overlay{
+  opacity: 1;
+}
+.overlay {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+.overlay .button {
+  width: 160px;
+  line-height: 38px;
+}
+.overlay .button:first-child {
+  margin-bottom: 2em;
+}

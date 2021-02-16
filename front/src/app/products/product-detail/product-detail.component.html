@@ -1,0 +1,191 @@
+<app-navbar [isHome]="isHome"></app-navbar>
+<div *ngIf="product" class="product-page">
+  <div class="product-page-container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="product-title">
+          {{ product.model}}
+        </div>
+        <div
+          class="product-details-image"
+          [ngStyle]="{ 'background-image': 'url(' + product.url + ')' }"
+        ></div>
+      </div>
+
+      <!-- <h1 class="product-brand">{{product.bodyType}}</h1>
+                  <div class="product-price">{{product.equipmentLevel }}</div>
+                  <div class="product-description">{{product.generation}}</div> -->
+      <div class="col-md-5">
+
+      
+        <div class="row">
+        <div class="col-md-4" >
+            <!-- <div class="image-container " (click)="changeCover(i)">
+              <div
+                class="product-details-image1"
+                [ngStyle]="{
+                  'background-image':
+                    'url(' + product.covers[i].combination.url + ')'
+                }"
+              ></div>
+            </div> -->
+            <p>{{product.description}}</p>
+        </div>
+      </div>
+      <br>
+      <div class="product-brand" >{{"Cena: "+product.price+" EUR"}}</div>
+      <br>
+      <div class="product-details-button">
+        <div *ngIf="admin===false" class="product-cart-button button button-primary button-large" (click)="addToCart(product)">Add to cart</div>
+        <div *ngIf="cover && admin===true && changeActive===false && cover!=null" class="product-cart-button button button-primary button-large" (click)="onChangeCover()">Chenge cover</div>
+        <div *ngIf="cover===null && admin===true && addActive===false" class="product-cart-button button button-primary button-large" (click)="addCover()">Add cover</div>
+
+    </div>
+    <!-- to do naci kako sliku u combo -->
+    <!-- <select *ngIf="addActive===true" class="form-control" (change)="onChange($event)">
+      <option value="" disabled selected hidden>Combinations</option>
+      <option *ngFor="let comb of combinations" [value]="comb.id">
+        {{ comb.color1 }}
+      </option>
+    </select> -->
+    <!-- <form
+
+      #authForm1="ngForm"
+      (ngSubmit)="onSubmitCover(authForm1)"
+      *ngIf="addActive===true"
+    >
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="url"
+            type="text"
+            ngModel
+            name="url"
+            id="url"
+            (change)="onPhoto($event)"
+          />
+        </div>
+    
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="price"
+            type="text"
+            ngModel
+            name="price"
+            id="price"
+
+          />
+        </div>
+       
+      </div>
+      <div class="form-group">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="!authForm1.valid && choosenComb!=null"
+        >
+          Dodaj
+        </button>
+      </div>
+     
+    </form> -->
+  <!-- <form
+    #authForm2="ngForm"
+    (ngSubmit)="onSubmitChange(authForm2)"
+    *ngIf="changeActive===true && cover!=null"
+  >
+    <div class="form-group">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="url"
+          type="text"
+          ngModel
+          name="url"
+          id="url"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="price"
+          type="text"
+          ngModel
+          name="price"
+          id="price"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="!authForm2.valid"
+      >
+        Dodaj
+      </button>
+    </div>
+  </form> -->
+      </div>
+      <!--  -->
+    </div>
+  </div>
+
+
+  <div class="row" style="margin: 0px 0px;">
+    <div class="col-md-12">
+      <div class="product-brand">
+        <br />
+        Specifikacije:
+      </div>
+      <br>
+    <table class="table table-bordered success">
+      <thead>
+        <tr class="table-active">
+          <th >Brend</th>
+          <td>{{product.model}}</td>
+        </tr>
+        <tr class="table-default">
+          <th >Model</th>
+          <td>{{product.model}}</td>
+        </tr>
+        <tr class="table-active">
+          <th >Ram</th>
+          <td>{{product.ram}}</td>
+        </tr>
+        <tr class="table-default">
+          <th >Memory</th>
+          <td>{{product.memory}}</td>
+        </tr>
+        <tr class="table-active">
+          <th >Screen size</th>
+          <td>{{product.screen_size}}</td>
+        </tr>
+        <tr class="table-default">
+          <th >Camera</th>
+          <td>{{product.camera}}</td>
+        </tr>
+        <tr class="table-active">
+          <th >Front camera</th>
+          <td>{{product.front_camera}}</td>
+        </tr>
+        <tr class="table-default" >
+          <th >Battert</th>
+          <td>{{product.battery}}</td>
+        </tr>
+        <tr class="table-active" >
+          <th >System</th>
+          <td>{{product.system}}</td>
+        </tr>
+      </thead>
+
+    </table>
+  </div>
+  </div>
+</div>

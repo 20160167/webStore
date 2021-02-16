@@ -1,0 +1,99 @@
+<!-- <ng-template appPlaceholder></ng-template>
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+
+        <div *ngIf="isLoading">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" ngModel name="email" required email/>
+
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6"/>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{isLoginMode? 'Login':'Sign Up'}}</button> |
+                <button class="btn btn-primary" type="button" (click)="onSwitch()">Switch to {{isLoginMode? 'Sing Up':'Login'}}</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+<app-navbar [isHome]="isHome"></app-navbar>
+<div class="card bg-light">
+  <article class="card-body mx-auto" style="max-width: 400px;">
+    <h4 class="card-title mt-3 text-center">Register</h4>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+       </div>
+          <input ngModel name="name" class="form-control" placeholder="name" type="text" required>
+      </div> <!-- form-group// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+         </div>
+            <input ngModel name="surname" class="form-control" placeholder="surname" type="text" required>
+        </div>
+        <!-- <div class="form-group input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+           </div>
+              <input ngModel name="username" class="form-control" placeholder="Korisničko ime" type="text" required>
+          </div> -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+       </div>
+          <input ngModel name="email" class="form-control" placeholder="Email" type="email" required email>
+      </div> <!-- form-group// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-address-card" aria-hidden="true"></i> </span>
+       </div>
+          <input ngModel name="address" class="form-control" placeholder="address" type="text" required>
+      </div> <!-- form-group// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-address-card" aria-hidden="true"></i> </span>
+      </div>
+        <input ngModel name="city" class="form-control" placeholder="city" type="text" required>
+      </div> <!-- form-group// -->
+      <!-- <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i> </span>
+      </div>
+
+        <input ngModel name="zipCode" class="form-control" placeholder="Zip kod" type="text" required>
+      </div> -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i> </span>
+      </div>
+
+        <input ngModel name="phone" class="form-control" placeholder="phone number" type="text" required>
+      </div>
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+      </div>
+          <input ngModel name="password" class="form-control" placeholder="password" type="password" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$">
+      </div> <!-- form-group// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+      </div>
+          <input ngModel name="password_confirmation" class="form-control" placeholder="retype password" type="password" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$">
+      </div> <!-- form-group// -->
+      <div class="form-group">
+        <label *ngIf="error!=null">{{error}}</label>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!authForm.valid">Register</button>
+      </div> <!-- form-group// -->
+      <p class="text-center">Have account? <a routerLink="/auth">Login</a> </p>
+  </form>
+  </article>
+  </div> <!-- card.// -->

@@ -1,0 +1,122 @@
+ <app-navbar [isHome]="isHome"></app-navbar>
+ <!--Main layout-->
+  <div class="container wow fadeIn">
+
+    <!-- Heading -->
+    <h2 class="my-5 h2 text-center">Checkout</h2>
+
+    <!--Grid row-->
+    <div class="row" *ngIf="ready">
+
+      <!--Grid column-->
+      <div class="col-md-8 mb-4">
+
+        <!--Card-->
+        <div class="card">
+
+          <!--Card content-->
+          <form class="card-body" [formGroup]="form">
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--firstName-->
+                <div class="md-form ">
+                  <label for="firstName" class="">Ime</label>
+                  <input type="text" id="firstName" class="form-control" formControlName="firstName"  placeholder="ime">
+                </div>
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--lastName-->
+                <div class="md-form">
+                  <label for="lastName" class="">Prezime</label>
+                  <input type="text" id="lastName" class="form-control" formControlName="lastName"  placeholder="prezime">
+                </div>
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <!--email-->
+            <div class="md-form">
+              <label for="email" class="">Email</label>
+              <input type="text" id="email" class="form-control" placeholder="youremail@example.com" formControlName="email">
+            </div>
+
+            <!--address-->
+            <div class="md-form">
+              <label for="address" class="">Adresa</label>
+              <input type="text" id="address" class="form-control" placeholder="Adresa" formControlName="address">
+            </div>
+
+            <!--address-2-->
+            <div class="md-form">
+              <label for="address-2" class="">Grad</label>
+              <input type="text" class="form-control"  formControlName="city"  placeholder="grad">
+            </div>
+
+
+            <div class="md-form">
+                <label for="zip">Zip Kod</label>
+                <input type="text" class="form-control" id="zip"  formControlName="zipCode"  placeholder="zip kod">
+              </div>
+
+                <div class="md-form">
+                <label for="zip">Broj telefona</label>
+                <input type="text" class="form-control" id="zip"  formControlName="phoneNumber"  placeholder="broj telefona">
+              </div>
+
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" (click)="onInfoAdd()" [disabled]="!form.valid">Nastavi na plaćanje</button>
+            <button *ngIf="registered" class="btn btn-primary btn-lg btn-block" routerLink='/profile'>Izmeni informacije</button>
+
+
+          </form>
+         
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4">
+
+        <!-- Heading -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Your cart</span>
+          <span class="badge badge-secondary badge-pill">{{products.length}}</span>
+        </h4>
+
+        <!-- Cart -->
+        <!-- <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + com.url + ')'}">
+        </div> -->
+        <ul class="list-group mb-3 z-depth-1">
+          <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let product of products">
+            <div>
+              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + covproducter.url + ')'}">
+              </div>
+              <h6 class="my-0">{{product.model}}</h6>
+              <small class="text-muted">{{product.model}}</small>
+            </div>
+            <span class="text-muted">{{product.price+" EUR"}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (EUR)</span>
+            <strong>{{total}}</strong>
+          </li>
+        </ul>
+        <button class="btn btn-primary btn-lg btn-block" (click)="confirmOrder()" *ngIf="(haveCustomer || registered) && placanje">Confirm order</button>
+        <!-- Cart -->

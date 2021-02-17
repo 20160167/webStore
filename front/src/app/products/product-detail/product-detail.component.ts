@@ -1,11 +1,12 @@
-import { CombinationSearch, Product } from './../products.model';
+import { Category, Product } from './../products.model';
 import { AdminService } from './../../admin/admin.service';
 import { Component, OnInit,Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {  Car, Covers, Combination } from '../products.model';
 import { ProductsService } from '../products.service';
 import { CartService } from '../../cart/cart.service';
 import { NgForm } from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,56 +15,31 @@ import { NgForm } from '@angular/forms';
 })
 export class ProductDetailComponent implements OnInit {
   isHome=false;
-  // @Input()recipe:Recipe;
-  //ne treba nam vise jer koristimo rute
-  // recipe:Recipe;
-  // id: number;
 
-  //constructor(private recipeService: RecipeService, private route:ActivatedRoute, private router:Router) { }
-
-  // ngOnInit(): void {
-  //   // const id=this.route.snapshot.params['id'];
-  //   /ornji radi samo jednom..subscribe radi u svakom trenutku
-  //   this.route.params.subscribe(
-  //     (pa/grams:Params)=>{
-  //       this.id=+params['id'];
-  //       this.recipe=this.recipeService.getRecipe(this.id);
-  //     }
-  //   )
-  // }
-  // onAddToShoppigList(){
-  //   this.recipeService.addIngredientToShoppingList(this.recipe.ingredients);
-  // }
-  // editRecipe(){
-  //   this.router.navigate(['edit'],{relativeTo:this.route});
-  //   //alternativni metod
-  //   // this.router.navigate(['../',this.id,'edit'],{relativeTo:this.route});
-  // }
-  // onDelete(){
-  //   this.recipeService.deleteRecipe(this.id);
-  //   this.router.navigate(['/recipes']);
-  // }
   private sub;
   private sub2;
   public product:Product;
-  public cover:Covers;
   public url:string;
+  categories:Category[]=[];
   changeActive=false;
   addActive=false;
   admin=false;
+  private brand_id;
   choosenComb=null;
   id=null;
-  public combinations:Array<CombinationSearch>;
+  private brand;
+
   constructor(private route: ActivatedRoute,
               private productService:ProductsService,
               private cartService:CartService,
-              private adminService:AdminService
-  ) {this.cover=null;
+              private adminService:AdminService,
+              private router:Router
+  ) {
     }
 
   ngOnInit() {
     if(localStorage.getItem('userData')){
-      if(JSON.parse(localStorage.getItem('userData'))['role']==='ROLE_ADMIN'){
+      if(JSON.parse(localStorage.getItem('userData'))['role']==='admin'){
         this.admin=true;
       }
     }
@@ -73,71 +49,75 @@ export class ProductDetailComponent implements OnInit {
               this.id=res.id;
               this.getProduct(res.id);
           })
-      
+    this.adminService.getCategories().subscribe((categories)=>{
+      this.categories=categories;
+    })
   }
   getProduct = (id) => {
       this.sub = this.productService.getProduct(id)
           .subscribe(res => {
             console.log(res)
               this.product = res;
-              // this.url=this.product.url;
+              this.url=this.product.url;
+              this.brand_id=this.product.brand_id;
+              this.productService.getCategories().subscribe((categories:Category[])=>{
+                categories.forEach(category => {
+                  if(category.id==this.brand_id){
+                    this.brand=category.brand;
+                  }
+                });
+              });
             //console.log(this.product.id);
           })
   };
   addToCart = (product) => {
      this.cartService.addToCart(product);
   };
-  // changeCover(i:number){
-  //   this.url=this.product.covers[i].url;
-  //   this.cover=this.product.covers[i];
-  // }
-  ngOnDestroy() {
-  }
-  // addCover(){
-  //   this.addActive=true;
-  // }
-  // onChange($event){
-  //   this.choosenComb= $event.target.options[$event.target.options.selectedIndex].value;
-  // }
-  onSubmitCover(form: NgForm) {
-    // // console.log(form);
-    // if (!form.valid) {
-    //   return;
-    // }
-    // const url1 = form.value.url;
-    // const price =parseFloat(form.value.price);
-    // this.adminService.addCover(this.id, this.choosenComb, url1, price).subscribe();
-    // form.reset();
-    // this.addActive=false;
-    // //ako ovo ne radi napraviti da bude subject
-    // this.combinations.forEach((element)=>{
-    //   if(element.id===parseInt(this.choosenComb)){
-    //     console.log("uslo");
-    //     this.product.covers[this.product.covers.length]=new Covers(-1, element, url1, price);
-    //   }
-    // })
-  }
-  onSubmitChange(form: NgForm) {
-    // console.log(form);
-    // if (!form.valid) {
-    //   return;
-    // }
-    // const url1 = form.value.url;
-    // const price =parseFloat(form.value.price);
 
-    // this.adminService.changeCover(this.cover.id, url1, price).subscribe();
-    // form.reset();
-    // this.changeActive=false;
-    // this.url=url1;
-    // this.product.covers.forEach(cover=>{
-    //   if(cover===this.cover){
-    //     cover.price=price;
-    //     cover.url=url1;
-    //   }
-    // })
+  onSubmitChange(form: NgForm) {
+    console.log(form);
+    if (!form.valid) {
+      return;
+    }
+    const model = form.value.model;
+    const price = form.value.price;
+    const description =form.value.description;
+    const url =form.value.url;
+    const ram =form.value.ram;
+    const memory =form.value.memory;
+    const screen_size =form.value.screen_size;
+    const camera =form.value.camera;
+    const front_camera =form.value.front_camera;
+    const battery =form.value.battery;
+    const system =form.value.system;
+
+    this.adminService.changePhone(this.product.id, model, price, description,url, ram, memory, screen_size, camera, front_camera, battery, system,this.brand_id).subscribe((product)=>{
+      form.reset();
+      this.changeActive=false;
+      this.product=product;
+    });
+
   }
-  onChangeCover(){
+  onChange($event){
+    let text = $event.target.options[$event.target.options.selectedIndex].value;
+    console.log(text);
+    this.categories.forEach(element => {
+      console.log(element)
+      if(element.id==text){
+      this.brand_id=element.id;
+      console.log(this.brand_id)
+      }
+    });
+
+    }
+  changePhone(){
     this.changeActive=true;
+  }
+  deletePhone(product){
+    //pozvati metodu za brisanje u admin servis
+    this.adminService.deletePhone(this.product.id).subscribe(()=>{
+    this.router.navigateByUrl("/products");
+    })
   }
   onPhoto($event){
     this.url=$event.target.value;

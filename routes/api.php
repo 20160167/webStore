@@ -44,6 +44,7 @@ Route::group(
         Route::post('remove-from-chart', 'ChartController@removeFromChart');
         Route::post('check-out', 'OrderController@create');
         Route::put('update-user', 'UserInfoController@edit');
+        Route::get('users', 'UserInfoController@me');
         //ovde kao u todos hasmany pa da vrati svoje
         Route::get('orders', 'OrderController@myOrders');
         Route::get('orders/{order}', 'OrderController@show');
@@ -62,7 +63,7 @@ Route::group(
         Route::put('products/{id}', 'ProductController@edit');
         Route::delete('products/{id}', 'ProductController@destroy');
         Route::get('orders', 'OrderController@index');
-        Route::get('orders/{order}', 'OrderController@show');
+        Route::get('orders/{order}', 'OrderController@admin');
         Route::get('users', 'UserInfoController@index');
         Route::get('users/{id}', 'UserInfoController@show');
         Route::put('users/{id}', 'UserInfoController@edit');

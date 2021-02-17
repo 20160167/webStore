@@ -1,7 +1,8 @@
 import { AdminService } from './../../admin.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order } from '../../../profile/orders.model';
+import { Order, Products } from '../../../profile/orders.model';
+import { HelpOrder } from 'src/app/products/products.model';
 
 @Component({
   selector: 'app-products',
@@ -9,11 +10,10 @@ import { Order } from '../../../profile/orders.model';
   styleUrls: ['./order-details.component.css'],
   //moramo ovako da dodamo servis u komponentu
 })
+
 export class OrderDetailComponent implements OnInit{
-    nrSelect="";
     private sub;
-    public order:Order;
-    public status=["naruceno","u izradi", "poslato","isporuceno"];
+    public order:HelpOrder;
     constructor(private route: ActivatedRoute,
                 private adminService:AdminService) {}
 
@@ -26,20 +26,20 @@ export class OrderDetailComponent implements OnInit{
     }
     getProduct = (id) => {
         this.sub = this.adminService.getOrder(id)
-            .subscribe((order:Order) => {
-              //console.log(res)
+            .subscribe((order:HelpOrder) => {
+              console.log(order)
                 this.order = order;
-                this.nrSelect=order.status;
+                // this.nrSelect=order.status;
             })
     };
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
-    onChange($event){
-      let text = $event.target.options[$event.target.options.selectedIndex].text;
-      console.log(text);
-      this.adminService.changeOrderStatus(this.order.id, text);
-      this.nrSelect=text;
-      }
+    // onChange($event){
+    //   let text = $event.target.options[$event.target.options.selectedIndex].text;
+    //   console.log(text);
+    //   this.adminService.changeOrderStatus(this.order.id, text);
+    //   this.nrSelect=text;
+    //   }
   }
 

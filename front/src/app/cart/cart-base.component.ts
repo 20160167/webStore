@@ -1,6 +1,5 @@
-import { Cart, CartCover } from "./cart";
 import { CartService } from "./cart.service";
-import { Covers, Product } from "../products/products.model";
+import {  Product } from "../products/products.model";
 import { Products } from "../profile/orders.model";
 export class CartBaseComponent{
     public products:Product[];
@@ -9,6 +8,7 @@ export class CartBaseComponent{
         this.loadCart();
     }
     loadCart = () => {
+        this.cartService.fetchCart();
         this.cartService.cart
             .subscribe(res => {
                 this.products = res;

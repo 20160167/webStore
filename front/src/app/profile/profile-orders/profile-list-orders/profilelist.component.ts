@@ -16,10 +16,7 @@ import {Observable} from 'rxjs';
 export class MyOrdersListComponent implements OnInit {
   public orders:Array<Order>=[];
   private sub;
-  public listItems: Array<string> = [];
-  public enabled=false;
-  selectedOption:string;
-  modelItems=[];
+  
 
 
   //dodati pfiltered products pa da reaguje na promeni u combo
@@ -32,12 +29,12 @@ export class MyOrdersListComponent implements OnInit {
       this.load();
   }
   load = () => {
-    this.userService.getUser(JSON.parse(localStorage.getItem('userData'))['id']).subscribe((userInfo:UserInfo)=>{
-      this.sub = this.userService.getOrders(userInfo.info.id)
+    // this.userService.getUser(JSON.parse(localStorage.getItem('userData'))['id']).subscribe((userInfo:UserInfo)=>{
+      this.sub = this.userService.getOrders()
           .subscribe((orders:Order[]) => {
               this.orders = orders;
           })
-    });
+    // });
 
   };
   ngOnDestroy() {

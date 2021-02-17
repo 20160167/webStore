@@ -1,49 +1,42 @@
 <div class="cart-page-container">
   <div class="cart-page-header">
-      <h1>Detalji porudzbine</h1>
+      <h1>Order details</h1>
   </div>
-  <div class="row">
-    <div class="col-sm-4" >
-  <select class="form-control" [(ngModel)]='nrSelect'(change)="onChange($event)">
-  <option *ngFor="let stat of status" [value]=stat>{{stat}}</option>
-  </select>
-  </div>
-  </div>
+
   <div>
-    <h2>Korisnik</h2>
-    <div class="cart-item-title">{{"Ime: "+order.shoppingCart.customer.firstName}}</div>
-    <div class="cart-item-title">{{"Prezime: "+order.shoppingCart.customer.lastName}}</div>
-    <div class="cart-item-title">{{"email: "+order.shoppingCart.customer.email}}</div>
-    <div class="cart-item-title">{{"adresa: "+order.shoppingCart.customer.address}}</div>
-    <div class="cart-item-title">{{"Grad: "+order.shoppingCart.customer.city}}</div>
-    <div class="cart-item-title">{{"Zip Code: "+order.shoppingCart.customer.zipCode}}</div>
-    <div class="cart-item-title">{{"Broj Telefona: "+order.shoppingCart.customer.phoneNumber}}</div>
+    <h2>User</h2>
+    <div class="cart-item-title">{{"Name: "+order.user.name}}</div>
+    <div class="cart-item-title">{{"Surname: "+order.user.surname}}</div>
+    <div class="cart-item-title">{{"Address: "+order.user.address}}</div>
+    <div class="cart-item-title">{{"City: "+order.user.city}}</div>
+    <div class="cart-item-title">{{"Phone: "+order.user.phone}}</div>
   </div>
-  <div class="cart-page-content" *ngIf="order.shoppingCart.products.length>0">
+  <div class="cart-page-content" *ngIf="order.products.length>0">
       <!-- <div class="cart-item-header cart-item-row">
           <div class="cart-item-cell cart-item-product"><span>Product</span></div>
           <div class="cart-item-cell cart-item-quantity"><span>Quantity</span></div>
           <div class="cart-item-cell cart-item-total"><span>Total</span></div>
           <div class="cart-item-cell cart-item-action"><span>Action</span></div>
       </div> -->
-      <div class="cart-item-row" *ngFor="let cover of order.shoppingCart.products">
+      <div class="cart-item-row" *ngFor="let product of order.products">
           <div class="cart-item-cell cart-item-product">
-              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + cover.url + ')'}">
+              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + product.url + ')'}">
               </div>
               <div class="cart-item-info">
-                  <div class="cart-item-brand">{{cover.car.model.brand.name}}</div>
-                  <div class="cart-item-title">{{cover.car.model.name}}</div>
-                  <div class="cart-item-title">{{"Nivo opreme: "+cover.car.equipmentLevel}}</div>
-                  <div class="cart-item-title">{{"Generacija: "+cover.car.generation}}</div>
-                  <div class="cart-item-title">{{"Tip: "+cover.car.bodyType}}</div>
-                  <div class="cart-item-title">{{"Boja unutra: "+cover.combination.color1}}</div>
-                  <div class="cart-item-title">{{"Boja spolja: "+cover.combination.color2}}</div>
-                  <div class="cart-item-title">{{"Opis: "+cover.combination.description}}</div>
+                <div class="cart-item-brand">{{product.model}}</div>
+                <div class="cart-item-title">{{product.model}}</div>
+                <div class="cart-item-title">{{"Ram: "+product.ram}}</div>
+                <div class="cart-item-title">{{"Memory: "+product.memory}}</div>
+                <div class="cart-item-title">{{"Screen size: "+product.screen_size}}</div>
+                <div class="cart-item-title">{{"Camera: "+product.camera}}</div>
+                <div class="cart-item-title">{{"Front camera: "+product.front_camera}}</div>
+                <div class="cart-item-title">{{"Battery: "+product.battery}}</div>
+                <div class="cart-item-title">{{"System: "+product.system}}</div>
               </div>
           </div>
           <div class="cart-item-cell cart-item-total">
               <div class="item-price">
-                  {{cover.price+" EUR"}}
+                  {{product.price+" EUR"}}
               </div>
           </div>
       </div>
@@ -51,7 +44,7 @@
           <div class="col-lg-offset-6">
               <div class="cart-total-row row">
                   <div class="col-md-6 cart-total-label">
-                      Pregled korpe
+                      Cart overview
                   </div>
                   <div class="col-md-6 cart-total-value"></div>
               </div>

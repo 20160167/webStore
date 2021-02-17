@@ -16,9 +16,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Category::all(),200);
+        $categories=Category::all();
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($categories, 200);
+        }else{
+            return response()->xml(['category'=>$categories->toArray()]);
+        }
+//        return response($request->getAcceptableContentTypes());
     }
 
     /**
@@ -46,9 +52,15 @@ class CategoryController extends Controller
     }
 
 
-    public function show($id)
+    public function show($id,Request $request)
     {
-        return response()->json(Category::findOrFail($id));
+        $category=Category::findOrFail($id);
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($category, 200);
+        }else{
+            return response()->xml(['category'=>$category->toArray()]);
+        }
+//        return response()->json(Category::findOrFail($id));
     }
 
     /**

@@ -8,132 +8,200 @@
         </div>
         <div
           class="product-details-image"
-          [ngStyle]="{ 'background-image': 'url(' + product.url + ')' }"
+          [ngStyle]="{ 'background-image': 'url(' + url + ')' }"
         ></div>
       </div>
 
-      <!-- <h1 class="product-brand">{{product.bodyType}}</h1>
-                  <div class="product-price">{{product.equipmentLevel }}</div>
-                  <div class="product-description">{{product.generation}}</div> -->
       <div class="col-md-5">
 
       
         <div class="row">
         <div class="col-md-4" >
-            <!-- <div class="image-container " (click)="changeCover(i)">
-              <div
-                class="product-details-image1"
-                [ngStyle]="{
-                  'background-image':
-                    'url(' + product.covers[i].combination.url + ')'
-                }"
-              ></div>
-            </div> -->
             <p>{{product.description}}</p>
         </div>
       </div>
       <br>
-      <div class="product-brand" >{{"Cena: "+product.price+" EUR"}}</div>
+      <div class="product-brand" >{{"Price: "+product.price+" EUR"}}</div>
       <br>
       <div class="product-details-button">
         <div *ngIf="admin===false" class="product-cart-button button button-primary button-large" (click)="addToCart(product)">Add to cart</div>
-        <div *ngIf="cover && admin===true && changeActive===false && cover!=null" class="product-cart-button button button-primary button-large" (click)="onChangeCover()">Chenge cover</div>
-        <div *ngIf="cover===null && admin===true && addActive===false" class="product-cart-button button button-primary button-large" (click)="addCover()">Add cover</div>
+        <div *ngIf="admin===true && changeActive==false" class="product-cart-button button button-primary button-large" (click)="changePhone()">Change phone</div>
+        <div *ngIf="admin===true" class="product-cart-button button button-primary button-large" (click)="deletePhone(product)">Delete phone</div>
 
     </div>
-    <!-- to do naci kako sliku u combo -->
-    <!-- <select *ngIf="addActive===true" class="form-control" (change)="onChange($event)">
-      <option value="" disabled selected hidden>Combinations</option>
-      <option *ngFor="let comb of combinations" [value]="comb.id">
-        {{ comb.color1 }}
+    <select *ngIf="changeActive" [(ngModel)]="brandSelect" class="form-control" (change)="onChange($event)">
+      <option value="" disabled selected hidden>Category</option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.brand }}
       </option>
-    </select> -->
-    <!-- <form
-
-      #authForm1="ngForm"
-      (ngSubmit)="onSubmitCover(authForm1)"
-      *ngIf="addActive===true"
-    >
-      <div class="form-group">
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="url"
-            type="text"
-            ngModel
-            name="url"
-            id="url"
-            (change)="onPhoto($event)"
-          />
-        </div>
-    
-      </div>
-      <div class="form-group">
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="price"
-            type="text"
-            ngModel
-            name="price"
-            id="price"
-
-          />
-        </div>
-       
-      </div>
-      <div class="form-group">
-        <button
-          type="submit"
-          class="btn btn-primary btn-block"
-          [disabled]="!authForm1.valid && choosenComb!=null"
-        >
-          Dodaj
-        </button>
-      </div>
-     
-    </form> -->
-  <!-- <form
+    </select>
+  <form
     #authForm2="ngForm"
     (ngSubmit)="onSubmitChange(authForm2)"
-    *ngIf="changeActive===true && cover!=null"
+    *ngIf="changeActive===true"
   >
-    <div class="form-group">
-      <div class="input-group">
-        <input
-          class="form-control"
-          placeholder="url"
-          type="text"
-          ngModel
-          name="url"
-          id="url"
-        />
-      </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="model"
+        type="text"
+        [ngModel]=product.model
+        name="model"
+        id="model"
+
+      />
     </div>
-    <div class="form-group">
-      <div class="input-group">
-        <input
-          class="form-control"
-          placeholder="price"
-          type="text"
-          ngModel
-          name="price"
-          id="price"
-        />
-      </div>
+    <!-- input-group.// -->
+  </div>
+  <!-- form-group// -->
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="price"
+        type="number"
+        [ngModel]=product.price
+        name="price"
+        id="price"
+      />
     </div>
-    <div class="form-group">
-      <button
-        type="submit"
-        class="btn btn-primary btn-block"
-        [disabled]="!authForm2.valid"
-      >
-        Dodaj
-      </button>
+    <!-- input-group.// -->
+  </div>
+  <!-- form-group// -->
+
+  <!-- form-group// -->
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="description"
+        type="text"
+        [ngModel]=product.description
+        name="description"
+        id="description"
+      />
     </div>
-  </form> -->
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="ram"
+        type="text"
+        [ngModel]=product.ram
+        name="ram"
+        id="ram"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="memory"
+        type="text"
+        [ngModel]=product.memory
+        name="memory"
+        id="memory"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="screen_size"
+        type="text"
+        [ngModel]=product.screen_size
+        name="screen_size"
+        id="screen_size"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="camera"
+        type="text"
+        [ngModel]=product.camera
+        name="camera"
+        id="camera"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="front_camera"
+        type="text"
+        [ngModel]=product.front_camera
+        name="front_camera"
+        id="front_camera"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="battery"
+        type="text"
+        [ngModel]=product.battery
+        name="battery"
+        id="battery"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="system"
+        type="text"
+        [ngModel]=product.system
+        name="system"
+        id="system"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        placeholder="Url"
+        type="text"
+        [ngModel]=product.url
+        name="url"
+        id="url"
+        (change)="onPhoto($event)"
+      />
+    </div>
+    <!-- input-group.// -->
+  </div>
+  <!-- form-group// -->
+  <div class="form-group">
+    <button
+      type="submit"
+      class="btn btn-primary btn-block"
+      [disabled]="!authForm2.valid"
+    >
+      Change
+    </button>
+  </div>
+  <!-- form-group// -->
+</form>
       </div>
-      <!--  -->
     </div>
   </div>
 
@@ -149,7 +217,7 @@
       <thead>
         <tr class="table-active">
           <th >Brend</th>
-          <td>{{product.model}}</td>
+          <td>{{brand}}</td>
         </tr>
         <tr class="table-default">
           <th >Model</th>

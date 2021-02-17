@@ -25,9 +25,7 @@
             <li class="nav-item btn-link">
               <div class="header-cart-wrapper">
                 <div class="header-cart" (click)="toggleCartPopup($event)">
-                    <!-- <div class="mobil-shopping-cart">
-                        <span><i class="fa fa-shopping-cart fa-2x"></i> <span *ngIf="cart_num">( {{cart_num}} )</span></span>
-                    </div> -->
+
                     <div class="header-cart-item">
                         <a class="nav-link" [ngClass]="{'nav-link1': isHome, 'nav-link2':!isHome }" (onclick)="onShop()" *ngIf="!admin">CHART <span *ngIf="cart_num">( {{cart_num}} )</span><span class="fa fa-caret-down"></span></a>
                     </div>

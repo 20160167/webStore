@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -52,6 +53,10 @@ class AuthController extends Controller
                 'name'     => 'required|string|between:2,100',
                 'email'    => 'required|email|unique:users',
                 'password' => 'required|confirmed|min:6',
+                'surname'     => 'required|string|between:2,100',
+                'address'     => 'required|string|between:2,100',
+                'city'     => 'required|string|between:2,100',
+                'phone'     => 'required|string|between:2,100',
             ]
         );
 
@@ -61,13 +66,25 @@ class AuthController extends Controller
                 422
             );
         }
-
-        $user = User::create(
-            array_merge(
-                $validator->validated(),
-                ['password' => bcrypt($request->password)]
-            )
-        );
+        $user=new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=bcrypt($request->password);
+        $user->save();
+        $userInfo=new UserInfo();
+        $userInfo->name=$request->name;
+        $userInfo->surname=$request->surname;
+        $userInfo->address=$request->address;
+        $userInfo->city=$request->city;
+        $userInfo->phone=$request->phone;
+        $userInfo->user_id=$user->id;
+        $userInfo->save();
+//        $user = User::create(
+//            array_merge(
+//                $validator->validated(),
+//                ['password' => bcrypt($request->password)]
+//            )
+//        );
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
 

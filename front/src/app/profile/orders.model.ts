@@ -1,43 +1,26 @@
-import { Model } from "./../products/products.model";
-import { Combination } from "../products/products.model";
 
-export class Paymnet{
-  method:string;
-}
+
+
 export class Order {
   id: number;
-  status: string;
-  date: Date;
-  shoppingCart: OrderShoppingCart;
+  datum: string;
   total: number;
-  paymnet:Paymnet;
+  products:Products[];
 }
-export class OrderShoppingCart {
-  id: number;
-  active: boolean;
-  customer: OrderCustomer;
-  products: Products[];
-}
+
 export class Products {
   id: number;
-  car: OrderCar;
-  combination: Combination;
-  url: string;
+  model: string;
   price: number;
-}
-export class OrderCar {
-  model: Model;
-  bodyType: string;
-  generation: string;
-  equipmentLevel:string;
+  description: string;
   url: string;
-}
-export class OrderCustomer {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  city: string;
-  zipCode: string;
-  phoneNumber: string;
+  ram: string;
+  memory: string;
+  screen_size: string;
+  camera: string;
+  front_camera: string;
+  battery: string;
+  system: string;
+  brand_id: number;
+
 }

@@ -16,9 +16,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Product::all(),200);
+        $products=Product::all();
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($products, 200);
+        }else{
+            return response()->xml(['product'=>$products->toArray()]);
+        }
     }
 
     /**
@@ -59,9 +64,14 @@ class ProductController extends Controller
     }
 
 
-    public function show($id)
+    public function show($id, Request $request)
     {
-        return response()->json(Product::findOrFail($id));
+        $product=Product::findOrFail($id);
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($product, 200);
+        }else{
+            return response()->xml(['product'=>$product->toArray()]);
+        }
     }
 
 

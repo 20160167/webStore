@@ -5,7 +5,6 @@ import { ProfileComponent } from './profile.component';
 import { MyOrdersListComponent } from './profile-orders/profile-list-orders/profilelist.component';
 import { MyOrdersComponent } from './profile-orders/profil-order.component';
 import { MyOrderDetailComponent } from './profile-orders/profile-order-detail/profile-details.component';
-import { ProfilePasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -25,10 +24,6 @@ const routes: Routes = [
             //resolve: [ProductResolverService]
           }
         ]
-      },
-      {
-        path: 'changepassword',
-        component: ProfilePasswordComponent
       }
 
     ]

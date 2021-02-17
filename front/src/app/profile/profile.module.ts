@@ -1,7 +1,6 @@
 import { MyOrderDetailComponent } from './profile-orders/profile-order-detail/profile-details.component';
 import { MyOrdersListComponent } from './profile-orders/profile-list-orders/profilelist.component';
 import { MyOrdersComponent } from './profile-orders/profil-order.component';
-import { ProfilePasswordComponent } from './reset-password/reset-password.component';
 import { ProfileInfoComponent } from './profil-info/profile-info.component';
 import { NavbarModule } from '../navbar/navbar.module';
 import {NgModule} from "@angular/core";
@@ -20,7 +19,6 @@ import { ProfileRoutingModule } from './profile-routing.module';
     declarations: [
       ProfileComponent,
       ProfileInfoComponent,
-      ProfilePasswordComponent,
       MyOrdersComponent,
       MyOrdersListComponent,
       MyOrderDetailComponent

@@ -1,42 +1,7 @@
-<!-- <div class="row">
-    <div class="col-md-5">
-        <app-recipe-list></app-recipe-list>
-    </div>
-    <div class="col-md-7">
 
-        <router-outlet></router-outlet>
-    </div>
-</div> -->
 
 <app-navbar [isHome]="isHome"></app-navbar>
-<!-- <div class="header-image">
-  <div class="header-block">
-      <div class="header-text">
-          <div class="header-text-title">Auto presvlake Tradicija</div>
-          <p>
-            Promenite izgled vaših sedišta
-            <br>
-            Najkvalitetnije presvlake na tržištu
-          </p>
-      </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
 
-  </div>
-</div> -->
-<br>
-
-<!-- dodati ovo u row pa column -->
-<!-- <select class='select-option'
-    #mySelect
-    (change)='onOptionsSelected(mySelect.value)'>
-   <option class='option'
-   *ngFor='let option of dropDownData'
-   [value]="option.seo_val">{{option.text_val}}</option>
-</select> -->
-<!-- <select class="uk-width-1-1" id="model" name="model[]" placeholder="Svi modeli" disabled="disabled" multiple="multiple"></select> -->
 <div class="layout-container">
   <div class="row" *ngIf="admin">
     <div class="col-md-4">
@@ -45,48 +10,11 @@
       <div class="product-cart-button button button-primary button-large" routerLink="/products/new">Dodaj</div>
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col-sm-4" >
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input type="text"
-                 placeholder="Brand"
-                 aria-label="Number"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto"/>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"(optionSelected)='onChange($event.option.value)'>
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
 
-  </div>
-  <div class="col-sm-4">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input type="text"
-               placeholder="Model"
-               aria-label="Number"
-               matInput
-               [formControl]="myControl1"
-               [matAutocomplete]="auto1" [disabled]="!enabled"/>
-        <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete" (optionSelected)='onChangeModel($event.option.value)'>
-          <mat-option *ngFor="let option of models | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
-
-    </div>
-  </div> -->
 
   <div class="product-grid">
     <div class="row">
-      <div *ngFor="let category of categories;" (click)='onChangeModel(category.id)'>
+      <div *ngFor="let category of categories;" (click)='onChangeModel(category.id)' style="margin-right: 20px;">
         <p>{{category.brand}}</p>
 
   </div>
@@ -98,14 +26,11 @@
               <div class="product-image" [ngStyle]="{'background-image': 'url('+product.url+ ')'}"></div>
               <div class="overlay">
                   <div class="button button-primary" [routerLink]="[product.id]">View Details</div>
-                  <!-- <div class="button button-primary" (click)="addToCart(product)">Add To Cart</div> -->
               </div>
           </div>
           <div class="product-details">
               <div class="product-title">{{product.model}}</div>
               <div class="product-brand">{{product.description}}</div>
-              <div class="product-brand">{{product.ram}}</div>
-              <div class="product-price">{{product.memory }}</div>
           </div>
       </div>
     </div>

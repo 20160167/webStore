@@ -19,7 +19,7 @@
         <span (click)="removeFromCart(i)" class="cart-remove" style="color:black;">X</span>
     </div>
 </div>
-<div *ngIf="products.length > 0">
+<div *ngIf="products && products.length > 0">
     <div class="cart-total">
         <div class="cart-total-item">
         <span class="cart-total-label">
@@ -32,7 +32,7 @@
     </div>
     <footer class="quick-cart-footer">
         <div class="quick-cart-footer-cell">
-            <div class="button button-secondary button-wide button-large" [routerLink]="['../cart']" (click)="cartService.toggleCart()" style="color:black;">Pogledaj korpu</div>
+            <div class="button button-secondary button-wide button-large" [routerLink]="['../../cart']" (click)="cartService.toggleCart()" style="color:black;">Pogledaj korpu</div>
         </div>
 
         <div class="quick-cart-footer-cell">
@@ -40,7 +40,7 @@
         </div>
     </footer>
 </div>
-<div *ngIf="products.length == 0">
+<div *ngIf="products && products.length == 0">
     <strong class="cart-empty" style="color:black;">Korpa je prazna</strong>
 </div>
 

@@ -20,11 +20,27 @@ class UserInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(UserInfo::all(),200);
-    }
 
+        $user=UserInfo::all();
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($user, 200);
+        }else{
+            return response()->xml(['info'=>$user->toArray()]);
+        }
+    }
+    public function me()
+    {
+        $u=null;
+        $usersInfo=UserInfo::all();
+        foreach ($usersInfo as $userInfo) {
+            if($userInfo->user_id==$this->user->id){
+                $u=$userInfo;
+            }
+        }
+        return response()->json($u,200);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -47,9 +63,14 @@ class UserInfoController extends Controller
     }
 
 
-    public function show($userInfo)
+    public function show($userInfo, Request $request)
     {
-        return response()->json(UserInfo::findOrFail($userInfo),200);
+        $user=UserInfo::findOrFail($userInfo);
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($user, 200);
+        }else{
+            return response()->xml(['info'=>$user->toArray()]);
+        }
     }
 
 

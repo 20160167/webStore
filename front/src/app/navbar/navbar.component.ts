@@ -31,7 +31,6 @@ export class NavbarComponent{
       let user=JSON.parse(localStorage.getItem('userData'))["username"];
       let role=JSON.parse(localStorage.getItem('userData'))["role"];
       console.log(user);
-      //console.log(localStorage.getItem('userData').valueOf());
       this.user=user;
       if(role==="admin"){
         this.admin=true;
@@ -45,6 +44,5 @@ export class NavbarComponent{
         this.cartService.toggleCart();
     }
     onShop(){
-      this.cartService.setCart();
     }
 }

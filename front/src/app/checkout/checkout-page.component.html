@@ -25,8 +25,8 @@
 
                 <!--firstName-->
                 <div class="md-form ">
-                  <label for="firstName" class="">Ime</label>
-                  <input type="text" id="firstName" class="form-control" formControlName="firstName"  placeholder="ime">
+                  <label for="firstName" class="">name</label>
+                  <input type="text" id="name" class="form-control" formControlName="name"  placeholder="name">
                 </div>
 
               </div>
@@ -37,8 +37,8 @@
 
                 <!--lastName-->
                 <div class="md-form">
-                  <label for="lastName" class="">Prezime</label>
-                  <input type="text" id="lastName" class="form-control" formControlName="lastName"  placeholder="prezime">
+                  <label for="lastName" class="">surname</label>
+                  <input type="text" id="surname" class="form-control" formControlName="surname"  placeholder="surname">
                 </div>
 
               </div>
@@ -47,39 +47,27 @@
             </div>
             <!--Grid row-->
 
-            <!--email-->
-            <div class="md-form">
-              <label for="email" class="">Email</label>
-              <input type="text" id="email" class="form-control" placeholder="youremail@example.com" formControlName="email">
-            </div>
 
             <!--address-->
             <div class="md-form">
-              <label for="address" class="">Adresa</label>
+              <label for="address" class="">address</label>
               <input type="text" id="address" class="form-control" placeholder="Adresa" formControlName="address">
             </div>
 
             <!--address-2-->
             <div class="md-form">
-              <label for="address-2" class="">Grad</label>
+              <label for="address-2" class="">City</label>
               <input type="text" class="form-control"  formControlName="city"  placeholder="grad">
             </div>
 
-
-            <div class="md-form">
-                <label for="zip">Zip Kod</label>
-                <input type="text" class="form-control" id="zip"  formControlName="zipCode"  placeholder="zip kod">
-              </div>
-
                 <div class="md-form">
-                <label for="zip">Broj telefona</label>
-                <input type="text" class="form-control" id="zip"  formControlName="phoneNumber"  placeholder="broj telefona">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone"  formControlName="phone"  placeholder="phone">
               </div>
 
 
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" (click)="onInfoAdd()" [disabled]="!form.valid">Nastavi na plaćanje</button>
-            <button *ngIf="registered" class="btn btn-primary btn-lg btn-block" routerLink='/profile'>Izmeni informacije</button>
+
 
 
           </form>
@@ -106,7 +94,7 @@
         <ul class="list-group mb-3 z-depth-1">
           <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let product of products">
             <div>
-              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + covproducter.url + ')'}">
+              <div class="cart-item-thumbnail" [ngStyle]="{'background-image': 'url(' + product.url + ')'}">
               </div>
               <h6 class="my-0">{{product.model}}</h6>
               <small class="text-muted">{{product.model}}</small>
@@ -118,5 +106,45 @@
             <strong>{{total}}</strong>
           </li>
         </ul>
-        <button class="btn btn-primary btn-lg btn-block" (click)="confirmOrder()" *ngIf="(haveCustomer || registered) && placanje">Confirm order</button>
+        <select name="valute" (change)="onChange($event)">
+          <option value="">Valuta</option>
+          
+          <option value="rsd" >rsd</option>
+          
+          <option value="usd" >usd</option>
+          
+          <option value="chf" >chf</option>
+          
+          <option value="gbr" >gbr</option>
+          
+          <option value="aud" >aud</option>     
+          
+          <option value="cad" >cad</option>
+          
+          <option value="sek" >sek</option>
+          
+          <option value="dkk" >dkk</option>
+          
+          <option value="nok" >nok</option>
+          
+          <option value="jpy" >jpy</option>
+          
+          <option value="rub" >rub</option>
+          
+          <option value="cny" >cny</option>
+          
+          <option value="hrk" >hrk</option>
+          
+          <option value="kwd" >kwd</option>
+          
+          <option value="pln" >pln</option>
+          
+          <option value="czk" >czk</option>
+
+          <option value="huf" >huf</option>
+          
+          <option value="bam" >bam</option>
+      </select>
+      <strong *ngIf="selected">{{newtotal}}</strong>
+        <button class="btn btn-primary btn-lg btn-block" (click)="confirmOrder()" *ngIf="form.valid || registered">Confirm order</button>
         <!-- Cart -->

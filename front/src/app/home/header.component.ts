@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   }
   onShop(){
     this.router.navigateByUrl("/products");
-    this.cartService.setCart();
   }
 
 }

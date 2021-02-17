@@ -24,7 +24,7 @@ export class MyOrderDetailComponent implements OnInit{
     getProduct = (id) => {
         this.sub = this.userService.getOrder(id)
             .subscribe((order:Order) => {
-              //console.log(res)
+              console.log(order)
                 this.order = order;
             })
     };

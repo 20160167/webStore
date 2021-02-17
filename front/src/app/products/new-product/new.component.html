@@ -3,72 +3,21 @@
     <div class="col-md-6">
       <div class="card">
         <article class="card-body">
-          <h4 class="card-title text-center mb-4 mt-1">Dodaj novi automobil</h4>
+          <h4 class="card-title text-center mb-4 mt-1">Add new phone</h4>
           <hr />
           <select [(ngModel)]="brandSelect" class="form-control" (change)="onChange($event)">
             <option value="" disabled selected hidden>Brend</option>
-            <option *ngFor="let brand of brands" [value]="brand.id">
-              {{ brand.name }}
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.brand }}
             </option>
           </select>
-          <button type="button" class="btn btn-link" (click)="onAddBrand()" *ngIf="!brandAdd">
-            +
-          </button>
-          <form
 
-            #authForm1="ngForm"
-            (ngSubmit)="onSubmitBrand(authForm1)"
-            *ngIf="brandAdd"
-          >
+          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
               <div class="input-group">
                 <input
                   class="form-control"
-                  placeholder="Brend"
-                  type="text"
-                  ngModel
-                  name="brand"
-                  id="brand"
-                />
-              </div>
-              <!-- input-group.// -->
-            </div>
-            <!-- form-group// -->
-            <div class="form-group">
-              <button
-                type="submit"
-                class="btn btn-primary btn-block"
-                [disabled]="!authForm1.valid"
-              >
-                Dodaj
-              </button>
-            </div>
-            <!-- form-group// -->
-          </form>
-          <select
-            class="form-control"
-            [(ngModel)]="nrSelect"
-            [disabled]="!enabled"
-            (change)="onChangeModel($event)"
-          >
-            <option value="" disabled selected hidden>Model</option>
-            <option *ngFor="let model of modelItems" [value]="model.id">
-              {{ model.name }}
-            </option>
-          </select>
-          <button type="button" class="btn btn-link" (click)="onAddModel()" *ngIf="!modelAdd">
-            +
-          </button>
-          <form
-            #authForm2="ngForm"
-            (ngSubmit)="onSubmitModel(authForm2)"
-            *ngIf="modelAdd"
-          >
-            <div class="form-group">
-              <div class="input-group">
-                <input
-                  class="form-control"
-                  placeholder="Model"
+                  placeholder="model"
                   type="text"
                   ngModel
                   name="model"
@@ -79,40 +28,14 @@
             </div>
             <!-- form-group// -->
             <div class="form-group">
-              <button
-                type="submit"
-                class="btn btn-primary btn-block"
-                [disabled]="!authForm2.valid"
-              >
-                Dodaj
-              </button>
-            </div>
-            <!-- form-group// -->
-          </form>
-          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-            <div class="form-group">
               <div class="input-group">
                 <input
                   class="form-control"
-                  placeholder="Tip"
-                  type="text"
+                  placeholder="price"
+                  type="number"
                   ngModel
-                  name="bodyType"
-                  id="bodyType"
-                />
-              </div>
-              <!-- input-group.// -->
-            </div>
-            <!-- form-group// -->
-            <div class="form-group">
-              <div class="input-group">
-                <input
-                  class="form-control"
-                  placeholder="Generacija"
-                  type="text"
-                  ngModel
-                  name="generation"
-                  id="generation"
+                  name="price"
+                  id="price"
                 />
               </div>
               <!-- input-group.// -->
@@ -124,11 +47,102 @@
               <div class="input-group">
                 <input
                   class="form-control"
-                  placeholder="Nivo opreme"
+                  placeholder="description"
                   type="text"
                   ngModel
-                  name="equipmentLevel"
-                  id="equipmentLevel"
+                  name="description"
+                  id="description"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="ram"
+                  type="text"
+                  ngModel
+                  name="ram"
+                  id="ram"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="memory"
+                  type="text"
+                  ngModel
+                  name="memory"
+                  id="memory"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="screen_size"
+                  type="text"
+                  ngModel
+                  name="screen_size"
+                  id="screen_size"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="camera"
+                  type="text"
+                  ngModel
+                  name="camera"
+                  id="camera"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="front_camera"
+                  type="text"
+                  ngModel
+                  name="front_camera"
+                  id="front_camera"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="battery"
+                  type="text"
+                  ngModel
+                  name="battery"
+                  id="battery"
+                />
+              </div>
+              <!-- input-group.// -->
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="system"
+                  type="text"
+                  ngModel
+                  name="system"
+                  id="system"
                 />
               </div>
               <!-- input-group.// -->
@@ -152,7 +166,7 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-block"
-                [disabled]="!authForm.valid || modelId===null"
+                [disabled]="!authForm.valid"
               >
                 Dodaj
               </button>

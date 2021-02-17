@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Order_Product;
+use App\Models\Product;
 use App\Models\UserInfo;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -23,18 +24,49 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Order::all(),200);
+        $orders = Order::all();
+        $order_products = Order_Product::all();
+        foreach ($orders as $o) {
+            $products = [];
+            foreach ($order_products as $op) {
+                if ($o->id == $op->order_id) {
+                    $products[count($products)] = Product::find($op->product_id);
+                }
+            }
+            $o->products = $products;
+        }
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($orders, 200);
+        }else{
+            return response()->xml(['order'=>$orders->toArray()]);
+        }
+//        return response()->json($orders,200);
     }
-    public function myOrders()
+    public function myOrders(Request $request)
     {
+        $order_products=Order_Product::all();
         $orders=null;
         foreach ($this->guard()->user()->info()->get(['id']) as $id){
             $info=UserInfo::findOrFail($id['id']);
             $orders=$info->orders()->get(['id','datum','total']);
         }
-        return response()->json($orders, 200);
+        $products=[];
+        foreach ($orders as $order){
+            foreach ($order_products as $order_product) {
+                if ($order->id == $order_product->order_id) {
+                    $products[count($products)] = Product::find($order_product->product_id);
+                }
+            }
+            $order->products=$products;
+        }
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($orders, 200);
+        }else{
+            return response()->xml(['order'=>$orders->toArray()]);
+        }
+//        return response()->json($orders, 200);
     }
 
     public function create(Request $request)
@@ -67,19 +99,19 @@ class OrderController extends Controller
         //u slucaju da nije samo sacuvamo order sa id-ijem usera iz guarda
 
         $chart = [];
-        if ($request->session()->has('chart')) {
-            $chart = $request->session()->get('chart');
-        }
-        foreach ($chart as $elements) {
-            foreach ($elements as $element) {
+//        if ($request->session()->has('chart')) {
+//            $chart = $request->session()->get('chart');
+//        }
+        $chart=$request->chart;
+        foreach ($chart as $element) {
                 $product_order = new Order_Product();
                 $product_order->order_id = $order->id;
-                $product_order->product_id = $element->id;
+                $product_order->product_id = $element;
                 $product_order->save();
             }
-        }
-        $request->session()->forget('chart');
-        return redirect('/');
+
+//        $request->session()->forget('chart');
+        return response()->json("kul",201);
     }
 
     /**
@@ -94,7 +126,7 @@ class OrderController extends Controller
     }
 
 
-    public function show($order)
+    public function show($order, Request $request)
     {
 //        $ui=null;
 //        foreach ($this->guard()->user()->info()->get(['id']) as $id){
@@ -106,9 +138,52 @@ class OrderController extends Controller
 //        if($order->user_info_id!=$ui){
 //            return response()->json("you are not user", 404);
 //        }
-        return response()->json(Order::findOrFail($order),200);
+        $o=Order::find($order);
+        $order_products=Order_Product::all();
+        $products=[];
+        foreach ($order_products as $order_product) {
+            if ($o->id == $order_product->order_id) {
+                $products[count($products)] = Product::find($order_product->product_id);
+            }
+        }
+        $o->products=$products;
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($o, 200);
+        }else{
+            return response()->xml(['order'=>$o->toArray()]);
+        }
+//        return response()->json($o,200);
     }
-
+    public function admin($order, Request $request)
+    {
+//        $ui=null;
+//        foreach ($this->guard()->user()->info()->get(['id']) as $id){
+//            $info=UserInfo::findOrFail($id['id']);
+//            $ui=$id['id'];
+//        }
+//        $order=Order::findOrFail($order);
+        //srediti ovu proveru
+//        if($order->user_info_id!=$ui){
+//            return response()->json("you are not user", 404);
+//        }
+        $o=Order::find($order);
+        $user=UserInfo::find($o->user_info_id);
+        $order_products=Order_Product::all();
+        $products=[];
+        foreach ($order_products as $order_product) {
+            if ($o->id == $order_product->order_id) {
+                $products[count($products)] = Product::find($order_product->product_id);
+            }
+        }
+        $o->user=$user;
+        $o->products=$products;
+        if($request->getAcceptableContentTypes()[0]=="application/json") {
+            return response()->json($o, 200);
+        }else{
+            return response()->xml(['order'=>$o->toArray()]);
+        }
+//        return response()->json($o,200);
+    }
     /**
      * Show the form for editing the specified resource.
      *

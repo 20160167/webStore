@@ -2,11 +2,10 @@ import { Router } from '@angular/router';
 
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import { Cart, CartCover } from './cart';
 import { take, tap, delay, switchMap, map } from "rxjs/operators";
-import { Covers, Product } from '../products/products.model';
+import { Product } from '../products/products.model';
 import { CustomerInfo } from '../checkout/customerinfo';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Products } from '../profile/orders.model';
 
 @Injectable()
@@ -24,6 +23,7 @@ export class CartService {
     };
     addToCart (product:Product){
       // console.log(product.id);
+      this.fetchCart();
       let products=[];
       this._cart.subscribe((p:Product[])=>{
         products=p;
@@ -31,9 +31,11 @@ export class CartService {
         products.push(product);
         this._cart.next(products);
         console.log(products);
+        localStorage.setItem('cart', JSON.stringify(products));
     }
     removeCart (i:number){
       console.log(i);
+      this.fetchCart();
       let products=[];
       this._cart.subscribe((p:Product[])=>{
         products=p;
@@ -41,39 +43,62 @@ export class CartService {
         products.splice(i,1);
         this._cart.next(products);
         console.log(products);
+        localStorage.setItem('cart', JSON.stringify(products));
     }
-    setCart(){
-    //   if(!localStorage.getItem('shoppingCart')){
-    //   return this.http.post("http://localhost:8000/api/shopping_carts",{}).subscribe(
-    //     (shoppingCart)=>{
-    //       localStorage.setItem('shoppingCart', shoppingCart.json().id);
-    //       console.log(localStorage.getItem('shoppingCart'));
-    //     })
-    // }
-  }
+
   fetchCart(){
-      return this.http.get("http://localhost:8000/api/chart").pipe(
-        tap((shoppingCart)=>{
-          // this._cart.next(shoppingCart);
-          console.log(shoppingCart);
-        })
-      );
-    
+ 
+      let products: Product[];
+      if(JSON.parse(localStorage.getItem('cart'))){
+        products= JSON.parse(localStorage.getItem('cart'));
+        console.log(JSON.parse(localStorage.getItem('cart')))
+      }else{
+        products=[];
+      }
+      this._cart.next(products);
   }
-  addCustomer(customerInfo:CustomerInfo){
-    // return this.http
-    //   .put(
-    //     "http://localhost:8000/api/shopping_carts/"+localStorage.getItem('shoppingCart').valueOf()+'/add-customer',
-    //     {customer:{firstName:customerInfo.firstName, lastName:customerInfo.lastName, email:customerInfo.email, address:customerInfo.address, city:customerInfo.city, zipCode:customerInfo.zipCode, phoneNumber:customerInfo.phoneNumber}}).subscribe();
-  }
-  comfirmOrder(method:string){
+
+  
+  comfirmOrder(name:string, surname:string, address:string, city:string, phone:string, datum:Date, total:number, chart:number[]){
+    let date1 = new Date();
+    let mesec=Number(date1.getUTCMonth()) + 1;
+    let date = date1.getUTCFullYear()+ '-' +mesec+ '-' +date1.getUTCDate();
+    console.log(date);
+    if(localStorage.getItem('userData')){
+    let token=JSON.parse(localStorage.getItem('userData'))['_token'];
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+      
     return this.http
       .post(
-        "http://localhost:8000/api/orders",
-        {shoppingCart:'api/shopping_carts/'+localStorage.getItem('shoppingCart').valueOf(), paymnet:'api/paymnets/'+method}).subscribe(()=>{
+        "http://localhost:8000/api/check-out",
+        {name:name, surname:surname, address:address, city:city, phone:phone, datum:date, total:total, chart:chart},{headers:headers}).subscribe(()=>{
           // localStorage.removeItem('shoppingCart');Kupovina
           this.router.navigateByUrl('/home');
+          localStorage.removeItem('cart');
         });
+  }else{
+      return this.http
+      .post(
+        "http://localhost:8000/api/check-out",
+        {name:name, surname:surname, address:address, city:city, phone:phone, datum:date, total:total, chart:chart}).subscribe(()=>{
+          // localStorage.removeItem('shoppingCart');Kupovina
+          console.log("dosao dovde");
+          this.router.navigateByUrl('/home');
+          localStorage.removeItem('cart');
+        });
+
   }
+
+}
+promeniValutu(valuta:string, total:number){
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': `*`
+  });
+ return this.http.get("https://cors-anywhere.herokuapp.com/https://api.kursna-lista.info/0e0156083e1ccc17dc40319ca542628a/konvertor/eur/"+valuta+"/"+total,{headers:headers});
+}
 
 }

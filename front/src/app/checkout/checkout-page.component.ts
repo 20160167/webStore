@@ -18,14 +18,12 @@ export class CheckoutPageComponent extends CartBaseComponent{
   isHome=false;
   haveCustomer=false;
   registered=false;
+  selected=false;
+  private newtotal:number;
   ready=false;
   form: FormGroup;
   formCard: FormGroup;
-  placanje=false;
-  method:string;
-  card=true;
-  pouzece=false;
-  bank=false;
+
     constructor(protected cartService: CartService, private userServise:UserService){
       super(cartService);
     }
@@ -36,11 +34,11 @@ export class CheckoutPageComponent extends CartBaseComponent{
         let id=JSON.parse(localStorage.getItem('userData'))['id'];
         this.userServise.getUser(id).subscribe((user:UserInfo)=>{
           this.form = new FormGroup({
-            firstName: new FormControl(user.name, {
+            name: new FormControl(user.name, {
               updateOn: "blur",
               validators: [Validators.required],
             }),
-            lastName: new FormControl(user.surname, {
+            surname: new FormControl(user.surname, {
               updateOn: "blur",
               validators: [Validators.required],
             }),
@@ -63,11 +61,11 @@ export class CheckoutPageComponent extends CartBaseComponent{
 
       }else{
         this.form = new FormGroup({
-          firstName: new FormControl(null, {
+          name: new FormControl(null, {
             updateOn: "blur",
             validators: [Validators.required],
           }),
-          lastName: new FormControl(null, {
+          surname: new FormControl(null, {
             updateOn: "blur",
             validators: [Validators.required],
           }),
@@ -86,72 +84,27 @@ export class CheckoutPageComponent extends CartBaseComponent{
         });
         this.ready=true;
     }
-    //to do definisati formu za card
-    // this.formCard = new FormGroup({
-    //       username: new FormControl(null, {
-    //         updateOn: "blur",
-    //         validators: [Validators.required],
-    //       }),
-    //       cardNumber: new FormControl(null, {
-    //         updateOn: "blur",
-    //         validators: [Validators.required],
-    //       }),
-    //       MM: new FormControl(null, {
-    //         updateOn: "blur",
-    //         validators: [Validators.required],
-    //       }),
-    //       YY: new FormControl(null, {
-    //         updateOn: "blur",
-    //         validators: [Validators.required],
-    //       }),
-    //       CVV: new FormControl(null, {
-    //         updateOn: "blur",
-    //         validators: [Validators.required],
-    //       })
-    //     });
+
     }
-    onInfoAdd() {
-      // if (!this.form.valid) {
-      //   return;
-      // }
-      // let customer=new CustomerInfo(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.address, this.form.value.city, this.form.value.zipCode, this.form.value.phoneNumber);
-      // this.cartService.addCustomer(customer);
-      // this.haveCustomer=true;
-    }
+
     confirmOrder(){
       //dodati sve sto se prosledjuje
-      this.cartService.comfirmOrder(this.form.value.name);
+      let niz:number[]=[];
+      this.products.forEach(product => {
+        niz.push(product.id);
+      });
+      this.cartService.comfirmOrder(this.form.value.name,this.form.value.surname, this.form.value.address, this.form.value.city, this.form.value.phone, new Date(), this.total ,niz);
     }
-    // onBackInfo(){
-    //   this.haveCustomer=false;
-    // }
-    // onCardComfirm(){
-    //   this.placanje=true;
-    //   this.method="2"
-    // }
-    // onPouzece(){
-    //   this.placanje=true;
-    //   this.method="1"
-    // }
-    // onRacunom(){
-    //   this.placanje=true;
-    //   this.method="3"
-    // }
-    // onCardClick(){
-    //   this.card=true;
-    //   this.bank=false;
-    //   this.pouzece=false;
-    // }
-    // onPouzecemClick(){
-    //   console.log("pouzece");
-    //   this.card=false;
-    //   this.bank=false;
-    //   this.pouzece=true;
-    // }
-    // onBankClick(){
-    //   console.log("bank");
-    //   this.card=false;
-    //   this.bank=true;
-    //   this.pouzece=false;
-    // }
+
+    onChange($event){
+      let text = $event.target.options[$event.target.options.selectedIndex].value;
+      console.log(text);
+      // this.selected=true;
+      this.cartService.promeniValutu(text, this.total).subscribe((price)=>{
+        console.log(price);
+      this.selected=true;
+        this.newtotal=price['result']['value'];
+      })
+      
+    }
 }
